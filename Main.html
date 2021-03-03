@@ -1,0 +1,120 @@
+﻿
+<!DOCTYPE html>
+
+<script>//src="Scripts.js"
+///============================================================================
+var t_timer;
+var t_ticker;
+var t_seconds;
+var ts_start;
+var ts_finish;
+var ts_diff;
+//============
+   var t_show_line;
+   var t_hor;
+   var t_min;
+   var t_sec;
+//============
+function t_start(time)//time in milicseconds
+{
+  clearTimeout(t_timer);
+  clearInterval(t_ticker);
+  ts_start = new Date().getTime();
+  ts_finish = ts_start + time;
+  ts_diff = time;
+  t_seconds=0;
+  t_ticker = setInterval(t_tick,1000);
+  t_timer = setTimeout(t_finish, time+250); 
+}
+function t_tick()
+{
+  t_seconds++;
+  t_show();
+}
+function t_finish()
+{
+   var audio = new Audio('Re-Zero-Whoaaayeeeaaayaaa-Sound-Effect-_HD_.mp3');
+   audio.play();
+   clearInterval(t_ticker);
+   setTimeout(alarm, 1000); 
+   //alert("Timer is finished");
+}
+function t_show()
+{
+  t_sec = ((ts_diff/1000)-t_seconds)%60;
+  t_min = parseInt(((ts_diff/1000)-t_seconds)/60%60);
+  t_hor = parseInt(((ts_diff/1000)-t_seconds)/60/60);
+  if(t_sec/10<1)t_sec="0"+ t_sec;
+  if(t_min/10<1)t_min="0"+ t_min;
+  if(t_hor/10<1)t_hor="0"+ t_hor;
+
+  t_show_line=t_hor+" : "+t_min+" : "+t_sec;
+
+   document.title = "MY_TIMER  : "+ t_show_line;
+   document.getElementById('timer').innerHTML = t_show_line;
+}
+function t_check()
+{
+   document.getElementById('demo1').innerHTML=ts_start;
+   document.getElementById('demo2').innerHTML=ts_finish;
+   document.getElementById('demo3').innerHTML=ts_diff;
+}
+function alarm()
+{
+   alert("Timer has finished");
+}
+
+</script>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet"
+    href="Style.css">
+    <title>MY_TIMER</title>
+</head>
+<body>
+
+<div>
+
+<table>
+   <!-- -->
+  <tr>
+    <td><h1 id="header">My Online Timer</h1></td>
+  </tr>
+   <!-- -->
+  <tr>
+  <table>
+    <tr>      
+  <td><p id="default_text">Curent timers: </p><td>
+  <td><button  id = "timers_button" onclick="t_start(60*60*1000)">1h</button><td>
+  <td><button  id = "timers_button"onclick="t_start(30*60*1000)">30m</button><td>
+  <td><button id = "timers_button" onclick="t_start(10*60*1000)" >10m</button><td>
+  <td><button id = "timers_button" onclick="t_start(5*60*1000)">5m</button><td>
+  <td><button id = "timers_button" onclick="t_start(1*60*1000)">1m</button><td>  
+  <td><button id = "timers_button" onclick="t_start(5*1000)">test</button><td>  
+    </tr>
+  </table>
+  </tr>
+   <!-- -->
+  <tr>
+    <td >
+    <p align ="center" id="timer">00 : 00 : 00</p>
+    </td>
+  </tr>
+   <!-- -->
+</table>
+
+</div>
+<p id='demo1'></p>
+<p id='demo2'></p>
+<p id='demo3'></p>
+<p id='demo4'></p>
+<p id='demo5'></p>
+<p id='demo6'></p>
+<p id='demo7'></p>
+<p id='demo8'></p>
+
+</body>
+</html>
